@@ -12,7 +12,7 @@ void pascal_triangle(int rows) {
 		printf("\n");
 	}
 }
-
+// function definition of n-select-k
 int binomial(int n, int k) {
 	return factorial(n) / factorial(k) / factorial(n - k);
 }

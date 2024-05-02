@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+    <title>Application development 2024 </title>
+    <script>
+        function getdata() {
+            fetch('http://www.cc.puv.fi/~e2302181/mydata.txt')
+                .then(r => r.text()).then(data => dispdata(data));
+        }
+        function dispdata(d) {
+            var ctt = document.getElementById("data");
+           //ctt.innerHTML = d;
+            can = document.getElementById("chart");
+            ctx = can.getContext("2d");
+            ctx.lineWidth = 10;
+            var lines = d.split("\n"); //split  the txt in two lines
+            var i = 0; //couter
+            var h = can.height;
+            while (typeof lines[0] !== "undefined") {
+                var curline = lines.shift(); //read top line
+                var splt = curline.split(' ');
+               // var min = parseInt(splt[2]), max = parseInt(splt[3]);
+                ctt.innerHTML += curline + "<br/>";
+                ctx.strokeStyle = '#00FF00';
+                ctx.beginPath();
+                ctx.moveTo(i * 30 + 10, h/2);
+                ctx.lineTo(i * 30 + 10, parseInt(splt[2]) * 20 + h/2);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.strokeStyle = '#FF0000'; //RED
+                ctx.moveTo(i * 30 + 20, h/2);
+                ctx.lineTo(i * 30 + 20, parseInt(splt[3]) * 5 + h / 2);
+                ctx.stroke();
+                i = i + 1;
+
+            }
+        }</script>
+</head>
+<body onload="getdata();">
+    <p id="data"></p>
+    <canvas id="chart" height="400" width="1000" style="border:solid 2px blue"></canvas>
+</body>
+</html>
